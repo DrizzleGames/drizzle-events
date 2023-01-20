@@ -618,7 +618,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1995621972}
-        m_TargetAssemblyTypeName: Examples.ExamplePublishEvent, Assembly-CSharp
+        m_TargetAssemblyTypeName: Samples.SamplePublishEvent, Assembly-CSharp
         m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:

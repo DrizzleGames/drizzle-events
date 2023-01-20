@@ -1,16 +1,16 @@
 using UnityEngine.UI;
 
-namespace DrizzleEvents.Examples
+namespace DrizzleEvents.Samples
 {
     
-    public class ExampleSubscribeToEvent : EventBehaviour
+    public class SampleSubscribeToEvent : EventBehaviour
     {
         private Text _textField;
         private int _pressCount;
         private void Start()
         {
             _textField = GetComponent<Text>();
-            Subscribe<ExampleButtonPressedEvent>(ButtonPressedHandler);
+            Subscribe<SampleButtonPressedEvent>(ButtonPressedHandler);
         }
 
         private void ButtonPressedHandler()
