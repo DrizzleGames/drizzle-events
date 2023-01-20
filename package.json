@@ -5,7 +5,7 @@
   "description": "Custom event system for Drizzle games in Unity.",
   "samples": [
     {
-      "displayName": "Drizzle Event System Samples",
+      "displayName": "Drizzle Events Samples",
       "description": "Contains a sample scene and two basic scripts to demonstrate basic usage",
       "path": "Samples~"
     }
