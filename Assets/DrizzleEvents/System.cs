@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DrizzleEvents
 {
@@ -9,15 +10,15 @@ namespace DrizzleEvents
         public static System Instance { get; private set; }
         private Dictionary<Type, List<object>> _subscribers;
 
-        [SerializeField] private bool logMessages;
+        [SerializeField] private bool logEvents;
+        public bool LogEvents => logEvents;
 
-        private bool activeQueueIsA;
+        private bool _activeQueueIsA;
         private Queue<Action> _deferredQueueA;
         private Queue<Action> _deferredQueueB;
-        
         private Queue<Action> _currentDeferredEventQueue;
 
-        void Awake()
+        private void Awake()
         {
             if (Instance != null && Instance != this) 
             { 
@@ -25,7 +26,7 @@ namespace DrizzleEvents
                 return;
             }
 
-            activeQueueIsA = true;
+            _activeQueueIsA = true;
             _deferredQueueA = new Queue<Action>(1000);
             _deferredQueueB = new Queue<Action>(1000);
             _currentDeferredEventQueue = _deferredQueueA;
@@ -34,25 +35,25 @@ namespace DrizzleEvents
             _subscribers = new Dictionary<Type, List<object>>();
         }
 
-        void Update()
+        private void Update()
         {
             var currentQueue = _currentDeferredEventQueue;
-            if (activeQueueIsA)
+            if (_activeQueueIsA)
             {
-                activeQueueIsA = false;
+                _activeQueueIsA = false;
                 _deferredQueueB.Clear();
                 _currentDeferredEventQueue = _deferredQueueB;
             }
             else
             {
-                activeQueueIsA = true;
+                _activeQueueIsA = true;
                 _deferredQueueA.Clear();
                 _currentDeferredEventQueue = _deferredQueueA;
             }
             
-            foreach (var a in currentQueue)
+            foreach (var action in currentQueue)
             {
-                a();
+                action();
             }
         }
 
@@ -72,14 +73,14 @@ namespace DrizzleEvents
         {
             if (!_subscribers.ContainsKey(typeof(T)))
             {
-                if (logMessages)
+                if (logEvents)
                 {
                     Debug.Log($"[PUBLISH 0]: {message}");
                 }
                 return;
             }
             
-            if (logMessages)
+            if (logEvents)
             {
                 Debug.Log($"[PUBLISH {_subscribers[typeof(T)].Count}]: {message}");
             }
@@ -100,7 +101,7 @@ namespace DrizzleEvents
                     }
                     catch (Exception e)
                     {
-                        if (logMessages)
+                        if (logEvents)
                         {
                             Debug.LogException(e);
                         }
@@ -113,14 +114,14 @@ namespace DrizzleEvents
         {
             if (!_subscribers.ContainsKey(typeof(T)))
             {
-                if (logMessages)
+                if (logEvents)
                 {
                     Debug.Log($"[PUBLISH 0]: {typeof(T)}");
                 }
                 return;
             }
             
-            if (logMessages)
+            if (logEvents)
             {
                 Debug.Log($"[PUBLISH {_subscribers[typeof(T)].Count}]: {typeof(T)}");
             }
@@ -141,7 +142,7 @@ namespace DrizzleEvents
                     }
                     catch (Exception e)
                     {
-                        if (logMessages)
+                        if (logEvents)
                         {
                             Debug.LogException(e);
                         }

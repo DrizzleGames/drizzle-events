@@ -105,3 +105,7 @@ $RECYCLE.BIN/
 Library/
 
 # End of https://www.gitignore.io/api/linux,macos,unity,windows
+
+Logs/
+
+UserSettings/
