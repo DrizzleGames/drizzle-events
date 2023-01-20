@@ -1,15 +1,13 @@
-﻿{
+{
   "name": "com.drizzlegames.drizzle-events",
   "version": "1.0.0",
   "displayName": "Drizzle Events",
   "description": "Custom event system for Drizzle games in Unity.",
-  "unity": "2019.1",
-  "dependencies": {},
   "samples": [
-        {
-            "displayName": "Drizzle Event System Samples",
-            "description": "Contains a sample scene and two basic scripts to demonstrate basic usage",
-            "path": "Samples~"
-        }
-    ]
+    {
+      "displayName": "Drizzle Event System Samples",
+      "description": "Contains a sample scene and two basic scripts to demonstrate basic usage",
+      "path": "Samples~"
+    }
+  ]
 }
