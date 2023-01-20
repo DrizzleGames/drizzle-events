@@ -1,8 +1,6 @@
-using DrizzleEvents;
-using UnityEngine;
 using UnityEngine.UI;
 
-namespace Examples
+namespace DrizzleEvents.Examples
 {
     
     public class ExampleSubscribeToEvent : EventBehaviour

@@ -1,7 +1,4 @@
-using DrizzleEvents;
-using UnityEngine;
-
-namespace Examples
+namespace DrizzleEvents.Examples
 {
     public interface ExampleButtonPressedEvent : IEvent{}
     
