@@ -1,6 +1,8 @@
 ﻿{
-    "name": "DrizzleGames.DrizzleEvents",
-    "references": [],
+    "name": "DrizzleGames.DrizzleEvents.Samples",
+    "references": [
+        "DrizzleGames.DrizzleEvents"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
