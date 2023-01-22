@@ -10,7 +10,7 @@ namespace DrizzleEvents
 
         protected virtual void OnDestroy()
         {
-            if (System.Instance.LogEvents)
+            if (EventSystem.Instance.LogEvents)
             {
                 Debug.Log("Destroying subs");
             }
@@ -20,24 +20,24 @@ namespace DrizzleEvents
             }
         }
 
-        protected void Subscribe<T>(Action<T> handler) where T : IEventArg
+        protected void Subscribe<T>(Action<T> handler) where T : IEventWithArgs
         {
-            _unsubs.Add(System.Instance.Subscribe<T>(handler));
+            _unsubs.Add(EventSystem.Instance.Subscribe<T>(handler));
         }
         
-        protected void Subscribe<T>(Action handler) where T : IEvent
+        protected void Subscribe<T>(Action handler) where T : IEventNoArgs
         {
-            _unsubs.Add(System.Instance.Subscribe<T>(handler));
+            _unsubs.Add(EventSystem.Instance.Subscribe<T>(handler));
         }
 
-        protected void Publish<T>(T message) where T : IEventArg
+        protected void Publish<T>(T message) where T : IEventWithArgs
         {
-            System.Instance.Publish(message); 
+            EventSystem.Instance.Publish(message); 
         }
         
-        protected void Publish<T>() where T : IEvent
+        protected void Publish<T>() where T : IEventNoArgs
         {
-            System.Instance.Publish<T>(); 
+            EventSystem.Instance.Publish<T>(); 
         }
     }
 }

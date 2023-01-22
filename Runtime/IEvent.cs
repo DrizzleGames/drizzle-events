@@ -1,11 +1,11 @@
 ﻿namespace DrizzleEvents
 {
-    public interface IEvent
+    public interface IEventNoArgs
     {
         
     }
     
-    public interface IEventArg
+    public interface IEventWithArgs
     {
         
     }

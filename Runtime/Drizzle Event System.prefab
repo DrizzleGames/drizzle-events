@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 790334408297979494}
   - component: {fileID: 790334408297979493}
   m_Layer: 0
-  m_Name: Drizzle Events System
+  m_Name: Drizzle Event System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
