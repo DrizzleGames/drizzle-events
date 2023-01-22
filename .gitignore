@@ -104,5 +104,8 @@ Library/
 # End of https://www.gitignore.io/api/linux,macos,unity,windows
 
 Logs/
-
 UserSettings/
+Assets/
+Packages/
+ProjectSettings/
+Temp/
