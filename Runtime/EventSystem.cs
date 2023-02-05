@@ -9,16 +9,35 @@ namespace DrizzleEvents
         public static EventSystem Instance { get; private set; }
         private Dictionary<Type, List<object>> _subscribers;
 
-        [SerializeField] private bool logEvents;
+        /*
+         * When an event handler is called, it may trigger additional events that need to be processed.
+         * Consequently, those events could have handlers that also fire events leading to many layers
+         * of events firing as the system process all the events and handlers.
+         *
+         * This property sets a maximum depth on those calls to ensure the message system doesn't lock up.
+         *
+         * Any messages received at depth n will be the last processed, and a warning will be logged to indicate that the depth may need to be increased.
+         */
+        [Min(1)]
+        [SerializeField]
+        private int EventDepth = 10;
+        [SerializeField]
         public bool LogEvents => logEvents;
 
         private bool _activeQueueIsA;
         private Queue<Action> _deferredQueueA;
         private Queue<Action> _deferredQueueB;
-        private Queue<Action> _currentDeferredEventQueue;
+        private Queue<Action> _currentDeferredQueue;
+        private Queue<Action> _nextDeferredQueue;
 
         private void Awake()
         {
+            if (EventDepth <= 0)
+            {
+                EventDepth = 1;
+                Debug.LogError("Event depth should be at least one - setting to 1");
+            }
+            
             if (Instance != null && Instance != this) 
             { 
                 Destroy(this);
@@ -28,7 +47,8 @@ namespace DrizzleEvents
             _activeQueueIsA = true;
             _deferredQueueA = new Queue<Action>(1000);
             _deferredQueueB = new Queue<Action>(1000);
-            _currentDeferredEventQueue = _deferredQueueA;
+            _currentDeferredQueue = _deferredQueueA;
+            _nextDeferredQueue = _deferredQueueB;
             
             Instance = this; 
             _subscribers = new Dictionary<Type, List<object>>();
@@ -36,23 +56,31 @@ namespace DrizzleEvents
 
         private void Update()
         {
-            var currentQueue = _currentDeferredEventQueue;
-            if (_activeQueueIsA)
+            for (var level = 0; level < EventDepth; level++)
             {
-                _activeQueueIsA = false;
-                _deferredQueueB.Clear();
-                _currentDeferredEventQueue = _deferredQueueB;
+                if (_currentDeferredEventQueue.Count == 0)
+                {
+                    break;
+                }
+                
+                var currentQueue = _currentDeferredQueue;
+                _currentDeferredQueue = _nextDeferredQueue;
+                _nextDeferredQueue = currentQueue;
+
+                for (var i = 0; i < currentQueue.Count; i++)
+                {
+                    currentQueue.Dequeue()();
+                }
+
+                if (_currentDeferredQueue.Count == 0)
+                {
+                    break;
+                }
             }
-            else
+
+            if (_currentDeferredQueue.Count > 0)
             {
-                _activeQueueIsA = true;
-                _deferredQueueA.Clear();
-                _currentDeferredEventQueue = _deferredQueueA;
-            }
-            
-            foreach (var action in currentQueue)
-            {
-                action();
+                Debug.LogWarning($"Max event depth {EventDepth} was reached and {_currentDeferredQueue.Count} were received. These will be processed on the next updated");
             }
         }
 
