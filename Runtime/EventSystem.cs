@@ -21,10 +21,10 @@ namespace DrizzleEvents
         [Min(1)]
         [SerializeField]
         private int EventDepth = 10;
-        [SerializeField]
+
+        [SerializeField] private bool logEvents;
         public bool LogEvents => logEvents;
 
-        private bool _activeQueueIsA;
         private Queue<Action> _deferredQueueA;
         private Queue<Action> _deferredQueueB;
         private Queue<Action> _currentDeferredQueue;
@@ -44,7 +44,6 @@ namespace DrizzleEvents
                 return;
             }
 
-            _activeQueueIsA = true;
             _deferredQueueA = new Queue<Action>(1000);
             _deferredQueueB = new Queue<Action>(1000);
             _currentDeferredQueue = _deferredQueueA;
@@ -58,7 +57,7 @@ namespace DrizzleEvents
         {
             for (var level = 0; level < EventDepth; level++)
             {
-                if (_currentDeferredEventQueue.Count == 0)
+                if (_currentDeferredQueue.Count == 0)
                 {
                     break;
                 }
@@ -120,7 +119,7 @@ namespace DrizzleEvents
                     continue;
                 }
 
-                _currentDeferredEventQueue.Enqueue(() =>
+                _currentDeferredQueue.Enqueue(() =>
                 {
                     try
                     {
@@ -161,7 +160,7 @@ namespace DrizzleEvents
                     continue;
                 }
 
-                _currentDeferredEventQueue.Enqueue(() =>
+                _currentDeferredQueue.Enqueue(() =>
                 {
                     try
                     {
