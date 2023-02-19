@@ -1,5 +1,5 @@
 ﻿{
-    "name": "DrizzleGames.DrizzleEvents.Samples",
+    "name": "DrizzleGames.DrizzleEvents.Editor",
     "references": [
         "GUID:b60ec8b326fd0ae4bbce5d8fdf1c2343"
     ],

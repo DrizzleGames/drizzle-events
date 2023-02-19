@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace DrizzleEvents
 {
+    [AddComponentMenu("Drizzle Events/Event System")]
+    [DefaultExecutionOrder(-1000)]
     public class EventSystem : MonoBehaviour
     {
         public static EventSystem Instance { get; private set; }
@@ -20,7 +22,7 @@ namespace DrizzleEvents
          */
         [Min(1)]
         [SerializeField]
-        private int EventDepth = 10;
+        private int eventDepth = 10;
 
         [SerializeField] private bool logEvents;
         public bool LogEvents => logEvents;
@@ -32,12 +34,6 @@ namespace DrizzleEvents
 
         private void Awake()
         {
-            if (EventDepth <= 0)
-            {
-                EventDepth = 1;
-                Debug.LogError("Event depth should be at least one - setting to 1");
-            }
-            
             if (Instance != null && Instance != this) 
             { 
                 Destroy(this);
@@ -55,7 +51,7 @@ namespace DrizzleEvents
 
         private void Update()
         {
-            for (var level = 0; level < EventDepth; level++)
+            for (var level = 0; level < eventDepth; level++)
             {
                 if (_currentDeferredQueue.Count == 0)
                 {
@@ -79,7 +75,7 @@ namespace DrizzleEvents
 
             if (_currentDeferredQueue.Count > 0)
             {
-                Debug.LogWarning($"Max event depth {EventDepth} was reached and {_currentDeferredQueue.Count} were received. These will be processed on the next updated");
+                Debug.LogWarning($"Max event depth {eventDepth} was reached and {_currentDeferredQueue.Count} were received. These will be processed on the next updated");
             }
         }
 
@@ -201,5 +197,6 @@ namespace DrizzleEvents
         
             subList.Add(handler);
         }
+
     }
 }
