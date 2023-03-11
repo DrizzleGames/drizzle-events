@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,7 +62,7 @@ namespace DrizzleEvents
                 _currentDeferredQueue = _nextDeferredQueue;
                 _nextDeferredQueue = currentQueue;
 
-                for (var i = 0; i < currentQueue.Count; i++)
+                while (currentQueue.Count != 0)
                 {
                     currentQueue.Dequeue()();
                 }
