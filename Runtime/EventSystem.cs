@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,75 +8,13 @@ namespace DrizzleEvents
     [DefaultExecutionOrder(-1000)]
     public class EventSystem : MonoBehaviour
     {
-        public static EventSystem Instance { get; private set; }
         private Dictionary<Type, List<object>> _subscribers;
-
-        /*
-         * When an event handler is called, it may trigger additional events that need to be processed.
-         * Consequently, those events could have handlers that also fire events leading to many layers
-         * of events firing as the system process all the events and handlers.
-         *
-         * This property sets a maximum depth on those calls to ensure the message system doesn't lock up.
-         *
-         * Any messages received at depth n will be the last processed, and a warning will be logged to indicate that the depth may need to be increased.
-         */
-        [Min(1)]
-        [SerializeField]
-        private int eventDepth = 10;
-
         [SerializeField] private bool logEvents;
         public bool LogEvents => logEvents;
 
-        private Queue<Action> _deferredQueueA;
-        private Queue<Action> _deferredQueueB;
-        private Queue<Action> _currentDeferredQueue;
-        private Queue<Action> _nextDeferredQueue;
-
-        private void Awake()
+        protected virtual void Awake()
         {
-            if (Instance != null && Instance != this) 
-            { 
-                Destroy(this);
-                return;
-            }
-
-            _deferredQueueA = new Queue<Action>(1000);
-            _deferredQueueB = new Queue<Action>(1000);
-            _currentDeferredQueue = _deferredQueueA;
-            _nextDeferredQueue = _deferredQueueB;
-            
-            Instance = this; 
             _subscribers = new Dictionary<Type, List<object>>();
-        }
-
-        private void Update()
-        {
-            for (var level = 0; level < eventDepth; level++)
-            {
-                if (_currentDeferredQueue.Count == 0)
-                {
-                    break;
-                }
-                
-                var currentQueue = _currentDeferredQueue;
-                _currentDeferredQueue = _nextDeferredQueue;
-                _nextDeferredQueue = currentQueue;
-
-                while (currentQueue.Count != 0)
-                {
-                    currentQueue.Dequeue()();
-                }
-
-                if (_currentDeferredQueue.Count == 0)
-                {
-                    break;
-                }
-            }
-
-            if (_currentDeferredQueue.Count > 0)
-            {
-                Debug.LogWarning($"Max event depth {eventDepth} was reached and {_currentDeferredQueue.Count} were received. These will be processed on the next updated");
-            }
         }
 
         public Action Subscribe<T>(Action<T> handler) where T : IEventWithArgs
@@ -115,20 +53,17 @@ namespace DrizzleEvents
                     continue;
                 }
 
-                _currentDeferredQueue.Enqueue(() =>
+                try
                 {
-                    try
+                    ((Action<T>) sub)(message);
+                }
+                catch (Exception e)
+                {
+                    if (logEvents)
                     {
-                        ((Action<T>) sub)(message);
+                        Debug.LogException(e);
                     }
-                    catch (Exception e)
-                    {
-                        if (logEvents)
-                        {
-                            Debug.LogException(e);
-                        }
-                    }
-                });
+                }
             }
         }
         
@@ -155,21 +90,18 @@ namespace DrizzleEvents
                     Debug.LogError("Subscriber function is null");
                     continue;
                 }
-
-                _currentDeferredQueue.Enqueue(() =>
+                
+                try
                 {
-                    try
+                    ((Action) sub)();
+                }
+                catch (Exception e)
+                {
+                    if (logEvents)
                     {
-                        ((Action) sub)();
+                        Debug.LogException(e);
                     }
-                    catch (Exception e)
-                    {
-                        if (logEvents)
-                        {
-                            Debug.LogException(e);
-                        }
-                    }
-                });
+                }
             }
         }
         
