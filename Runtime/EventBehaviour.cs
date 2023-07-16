@@ -9,7 +9,7 @@ namespace DrizzleEvents
         private List<Action> _unsubs = new();
         private EventSystem _localEventSystem;
 
-        public void Awake()
+        protected virtual void Awake()
         {
             _localEventSystem = findLocalEventSystemInParent();
         }
