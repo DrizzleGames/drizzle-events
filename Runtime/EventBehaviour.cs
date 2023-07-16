@@ -62,7 +62,7 @@ namespace DrizzleEvents
         {
             if (_localEventSystem != null)
             {
-                _unsubs.Add(EventManager.Instance.Subscribe<T>(handler));
+                _unsubs.Add(_localEventSystem.Subscribe<T>(handler));
             }
             else
             {
