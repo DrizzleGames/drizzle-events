@@ -16,10 +16,6 @@ namespace DrizzleEvents
 
         protected virtual void OnDestroy()
         {
-            if (EventManager.Instance.LogEvents)
-            {
-                Debug.Log("Destroying subs");
-            }
             foreach (var unsub in _unsubs)
             {
                 unsub?.Invoke();
