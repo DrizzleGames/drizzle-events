@@ -103,8 +103,8 @@ namespace DrizzleEvents
                 {
                     break;
                 }
-
-                currentGameObject = currentGameObject.transform.parent.gameObject;
+                var parent = currentGameObject.transform.parent;
+                currentGameObject = parent != null ? parent.gameObject : null;
             }
 
             return eventSystem;

@@ -1,12 +1,12 @@
 namespace DrizzleEvents.Samples
 {
-    public interface SampleButtonPressedEvent : IEvent{}
+    public interface SampleButtonPressedEvent : IEventNoArgs{}
     
     public class SamplePublishEvent : EventBehaviour
     {
         public void ButtonPressed()
         {
-            Publish<SampleButtonPressedEvent>();
+            PublishGlobal<SampleButtonPressedEvent>();
         }
     }
 }

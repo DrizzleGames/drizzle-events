@@ -10,7 +10,7 @@ namespace DrizzleEvents.Samples
         private void Start()
         {
             _textField = GetComponent<Text>();
-            Subscribe<SampleButtonPressedEvent>(ButtonPressedHandler);
+            SubscribeGlobal<SampleButtonPressedEvent>(ButtonPressedHandler);
         }
 
         private void ButtonPressedHandler()
