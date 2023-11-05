@@ -93,11 +93,11 @@ namespace DrizzleEvents
         private EventSystem findLocalEventSystemInParent()
         {
             var currentGameObject = gameObject;
-
+            
             EventSystem eventSystem = null;
             while (currentGameObject != null)
             {
-                eventSystem = gameObject.GetComponent<EventSystem>();
+                eventSystem = currentGameObject.GetComponent<EventSystem>();
 
                 if (eventSystem != null)
                 {
