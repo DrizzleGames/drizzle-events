@@ -1,0 +1,18 @@
+﻿using DrizzleEvents;
+
+public class #SCRIPTNAME# : EventBehaviour
+{
+    // Subscribe to a global event
+    private void Start(){
+        // SubscribeGlobal<GlobalEvent>(GlobalEventCallback);
+    }
+
+    // Publish a local event
+    // private void PublishEvent()
+    // {
+    //     PublishLocal(new LocalEvent
+    //     {
+    //         ExampleValue = value
+    //     });
+    // }
+}
