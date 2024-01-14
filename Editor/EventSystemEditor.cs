@@ -14,9 +14,21 @@ namespace Editor
         }
  
         [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event Behavior", isValidateFunction: false, priority: 1)]
-        public static void CreateScriptFromTemplate()
+        public static void NewEventBehaviour()
         {
             CreateFile("NewEventBehaviour", "New Event Behaviour");
+        }
+ 
+        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (No Args)", isValidateFunction: false, priority: 1)]
+        public static void NewNoArgsEvent()
+        {
+            CreateFile("NewNoArgsEvent", "NewNoArgsEvent");
+        }
+ 
+        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (With Args)", isValidateFunction: false, priority: 1)]
+        public static void NewArgsEvent()
+        {
+            CreateFile("NewArgsEvent", "NewArgsEvent");
         }
         
         private const string TemplatesFolder = "Packages/com.drizzlegames.drizzle-events/Editor/ScriptTemplates/";
@@ -24,6 +36,7 @@ namespace Editor
         {
             var path = $"{TemplatesFolder}{templateFilename}.cs.txt";
             var newFileName = $"{filename}.cs";
+            
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(path, newFileName);
         }
         

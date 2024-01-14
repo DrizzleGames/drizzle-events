@@ -1,0 +1,7 @@
+﻿using DrizzleEvents;
+
+/** Event Description */
+public class #SCRIPTNAME# : IEventWithArgs
+{
+    // public int Index { get; set; }
+}

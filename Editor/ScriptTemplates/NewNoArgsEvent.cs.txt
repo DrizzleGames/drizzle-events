@@ -1,0 +1,4 @@
+﻿using DrizzleEvents;
+
+/** Event Description */
+public abstract class #SCRIPTNAME# : IEventNoArgs {}
