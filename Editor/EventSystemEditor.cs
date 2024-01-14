@@ -19,16 +19,16 @@ namespace Editor
             CreateFile("NewEventBehaviour", "New Event Behaviour");
         }
  
-        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (No Args)", isValidateFunction: false, priority: 1)]
-        public static void NewNoArgsEvent()
-        {
-            CreateFile("NewNoArgsEvent", "NewNoArgsEvent");
-        }
- 
-        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (With Args)", isValidateFunction: false, priority: 1)]
+        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (With Args)", isValidateFunction: false, priority: 2)]
         public static void NewArgsEvent()
         {
             CreateFile("NewArgsEvent", "NewArgsEvent");
+        }
+ 
+        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (No Args)", isValidateFunction: false, priority: 3)]
+        public static void NewNoArgsEvent()
+        {
+            CreateFile("NewNoArgsEvent", "NewNoArgsEvent");
         }
         
         private const string TemplatesFolder = "Packages/com.drizzlegames.drizzle-events/Editor/ScriptTemplates/";
