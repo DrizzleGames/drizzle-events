@@ -1,6 +1,6 @@
 {
   "name": "com.drizzlegames.drizzle-events",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "displayName": "Drizzle Events",
   "description": "Custom event system for Drizzle Games in Unity.",
   "samples": [

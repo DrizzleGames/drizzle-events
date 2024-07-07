@@ -1,4 +1,5 @@
-﻿using DrizzleEvents;
+﻿#if UNITY_EDITOR
+using DrizzleEvents;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,6 +40,6 @@ namespace Editor
             
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(path, newFileName);
         }
-        
     }
 }
+#endif
