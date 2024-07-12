@@ -21,7 +21,7 @@ namespace DrizzleEvents
                 DontDestroyOnLoad(gameObject);
                 base.Awake();
             } else {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
 
