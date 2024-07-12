@@ -1,0 +1,11 @@
+﻿using DrizzleEvents;
+
+public class #SCRIPTNAME# : EventBehaviourSingleton<#SCRIPTNAME#>
+{
+    // Subscribe to a global event on Awake and whenever a scene is loaded
+    protected override void SceneStart()
+    {
+        // SubscribeGlobal<GlobalEvent>(GlobalEventCallback);
+    }
+
+}

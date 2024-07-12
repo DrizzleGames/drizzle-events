@@ -19,14 +19,20 @@ namespace Editor
         {
             CreateFile("NewEventBehaviour", "New Event Behaviour");
         }
+
+        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event Behavior Singleton", isValidateFunction: false, priority: 2)]
+        public static void NewEventBehaviourSingleton()
+        {
+            CreateFile("NewEventBehaviourSingleton", "New Event Behaviour Singleton");
+        }
  
-        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (With Args)", isValidateFunction: false, priority: 2)]
+        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (With Args)", isValidateFunction: false, priority: 3)]
         public static void NewArgsEvent()
         {
             CreateFile("NewArgsEvent", "NewArgsEvent");
         }
  
-        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (No Args)", isValidateFunction: false, priority: 3)]
+        [MenuItem(itemName: "Assets/Create/Drizzle Events/New Event (No Args)", isValidateFunction: false, priority: 4)]
         public static void NewNoArgsEvent()
         {
             CreateFile("NewNoArgsEvent", "NewNoArgsEvent");
