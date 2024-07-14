@@ -2,8 +2,9 @@
 
 public class #SCRIPTNAME# : EventBehaviour
 {
-    // Subscribe to a global event
-    private void Start(){
+    protected override void Awake()
+    {
+        base.Awake();
         // SubscribeGlobal<GlobalEvent>(GlobalEventCallback);
     }
 
